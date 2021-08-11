@@ -7,9 +7,11 @@ class PostBase(BaseModel):
     title: str
     body: str
 
+# Schema for request body
 class CreatePost(PostBase):
     pass
 
+#Schema for response body
 class Post(PostBase):
     created_at: dt
     updated_at: dt

@@ -1,17 +1,28 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, Depends
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+from sqlalchemy.orm import Session
 from routes import userRoutes, postRoutes
+from database import get_db
+from models.postModel import Post
 
-from database import Base, engine
-
-#* Generate (Automatic) Tables from SQLAlchemy models
-#* Must drop tables for updates
-Base.metadata.create_all(bind=engine)
+# Register template folder
+template = Jinja2Templates('templates')
 
 app = FastAPI()
+# Mount static folder
+app.mount('/static', StaticFiles(directory='static'), name='static')
+
+# Register Routes
 app.include_router(userRoutes.router)
+app.include_router(postRoutes.router)
 
-
-@app.get('/')
-def index():
-    return {'message': 'successful app'}
+@app.get('/', response_class=HTMLResponse)
+def index(request: Request, db: Session = Depends(get_db)):
+    posts = db.query(Post).all()
+    return template.TemplateResponse('index.html', {
+        'request': request,
+        'posts': posts
+    })
 

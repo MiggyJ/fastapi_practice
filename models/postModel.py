@@ -13,4 +13,4 @@ class Post(Base):
     created_at = Column(DateTime, server_default=text('NOW()'))
     updated_at = Column(DateTime, server_onupdate=text('NOW()'))
 
-    author = relationship('user', back_populates='posts')
+    author = relationship('User', back_populates='posts')

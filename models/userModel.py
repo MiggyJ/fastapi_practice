@@ -12,4 +12,4 @@ class User(Base):
     created_at = Column(DateTime, server_default=text('NOW()'))
     updated_at = Column(DateTime, server_onupdate=text('NOW()'))
 
-    posts = relationship('posts', back_populates='author')
+    posts = relationship('Post', back_populates='author')
