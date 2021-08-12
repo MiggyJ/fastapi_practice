@@ -21,7 +21,7 @@ def upgrade():
         'posts',
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('author_id', sa.Integer, sa.ForeignKey('users.id'), nullable=False),
-        sa.Column('tite', sa.String(255), nullable=False),
+        sa.Column('title', sa.String(255), nullable=False),
         sa.Column('body', sa.String(1000), nullable=False),
         sa.Column('created_at', sa.DateTime, server_default=sa.text('NOW()')),
         sa.Column('updated_at', sa.DateTime, server_onupdate=sa.text('NOW()'))

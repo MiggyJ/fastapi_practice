@@ -21,9 +21,12 @@ app.include_router(postRoutes.router)
 
 @app.get('/', response_class=HTMLResponse)
 def index(request: Request, db: Session = Depends(get_db)):
-    posts = db.query(Post).all()
-    return template.TemplateResponse('index.html', {
-        'request': request,
-        'posts': posts
-    })
+    try:
+        posts = db.query(Post).all()
+        return template.TemplateResponse('index.html', {
+            'request': request,
+            'posts': posts
+        })
+    except Exception as e:
+        print(e)
 
