@@ -10,7 +10,7 @@ class User(Base):
     name = Column(String(255), nullable=False)
     age = Column(Integer, nullable=False)
     password = Column(String(255), nullable=False)
-    created_at = Column(DateTime, server_default=text('NOW()'))
-    updated_at = Column(DateTime, server_onupdate=text('NOW()'))
+    created_at = Column(DateTime, default=text('NOW()'))
+    updated_at = Column(DateTime, onupdate=text('NOW()'))
 
     posts = relationship('Post', back_populates='author')

@@ -10,7 +10,7 @@ class Post(Base):
     author_id = Column(String(36), ForeignKey('users.id'), nullable=False)
     title = Column(String(255), nullable=False)
     body = Column(Text, nullable=False)
-    created_at = Column(DateTime, server_default=text('NOW()'))
-    updated_at = Column(DateTime, server_onupdate=text('NOW()'))
+    created_at = Column(DateTime, default=text('NOW()'))
+    updated_at = Column(DateTime, onupdate=text('NOW()'))
 
     author = relationship('User', back_populates='posts')
