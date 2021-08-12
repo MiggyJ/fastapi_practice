@@ -2,8 +2,7 @@ from datetime import datetime as dt
 from pydantic import BaseModel
 
 class PostBase(BaseModel):
-    id: int
-    author_id: int
+    author_id: str
     title: str
     body: str
 
