@@ -7,7 +7,7 @@ class UserBase(BaseModel):
 
 # Schema for request body
 class CreateUser(UserBase):
-    pass
+    password: str
 
 # Schema for response body
 class User(BaseModel):

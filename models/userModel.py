@@ -9,6 +9,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(255), nullable=False)
     age = Column(Integer, nullable=False)
+    password = Column(String(255), nullable=False)
     created_at = Column(DateTime, server_default=text('NOW()'))
     updated_at = Column(DateTime, server_onupdate=text('NOW()'))
 

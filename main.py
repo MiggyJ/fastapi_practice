@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
-from routes import userRoutes, postRoutes
+from routes import authRoutes, userRoutes, postRoutes
 from database import get_db
 from models.postModel import Post
 
@@ -15,6 +15,7 @@ app = FastAPI()
 app.mount('/static', StaticFiles(directory='static'), name='static')
 
 # Register Routes
+app.include_router(authRoutes.router)
 app.include_router(userRoutes.router)
 app.include_router(postRoutes.router)
 
