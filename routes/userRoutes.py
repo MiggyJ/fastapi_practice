@@ -1,13 +1,15 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Cookie
 from sqlalchemy.orm import Session
 from schemas.userSchema import CreateUser
 from models.userModel import User
 from database import get_db
+from dependencies import get_token
 
 
 router = APIRouter(
     prefix='/users',
-    tags=['users']
+    tags=['users'],
+    dependencies=[Depends(get_token)]
 )
 
 @router.get('/')
