@@ -10,6 +10,6 @@ class CreateUser(UserBase):
     password: str
 
 # Schema for response body
-class User(BaseModel):
+class User(UserBase):
     created_at: dt
     updated_at: dt

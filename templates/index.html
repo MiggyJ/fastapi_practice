@@ -20,5 +20,70 @@
             <h3>No posts to show.</h3>
         {%endfor%}
     </div>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <table id="table" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>title</th>
+                                <th>body</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+{%endblock%}
+
+{%block plugins_css%}
+<link rel="stylesheet" href="{{url_for('static', path='/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+<link rel="stylesheet" href="{{url_for('static', path='/plugins/datatables-scroller/css/scroller.bootstrap4.min.css')}}">
+<link rel="stylesheet" href="{{url_for('static', path='/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+<link rel="stylesheet" href="{{url_for('static', path='/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+{%endblock%}
+
+{%block plugins_js%}
+<script src="{{url_for('static', path='/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-scroller/js/datatables.scroller.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-scroller/js/scroller.bootstrap4.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/jszip/jszip.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+{%endblock%}
+
+{%block scripts%}
+<script>
+    let table = $('#table').DataTable({
+        serverSide: true,
+        processing:true,
+        lengthChange: false,
+        pageLength: 25,
+        scrollY: 400,
+        responsive: true,
+        buttons:[
+            {extend: 'excel', text: 'Save to Excel File'}
+        ],
+        ajax: '/posts/datatable',
+        columns:[
+            {data: 'author_name'},
+            {data: 'title'},
+            {data: 'body'}
+        ],
+        initComplete: function(){
+            table.buttons().container().appendTo('#table_wrapper .col-md-6:eq(0)')
+        }
+    })
+    
+</script>
 {%endblock%}
